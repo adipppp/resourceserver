@@ -6,3 +6,6 @@ spring:
     name: resourceserver
   config:
     import: optional:file:.env[.properties]
+
+auth-server:
+  host: ${AUTH_SERVER_HOST}
