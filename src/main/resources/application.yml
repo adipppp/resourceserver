@@ -1,0 +1,8 @@
+server:
+  port: ${PORT}
+
+spring:
+  application:
+    name: resourceserver
+  config:
+    import: optional:file:.env[.properties]
