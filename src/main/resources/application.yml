@@ -1,11 +1,26 @@
 server:
   port: ${PORT}
 
+logging:
+  level:
+    org.springframework.security: DEBUG
+
 spring:
   application:
     name: resourceserver
   config:
     import: optional:file:.env[.properties]
+  datasource:
+    url: ${PG_URL}
+    username: ${PG_USER}
+    password: ${PG_PASS}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
 
 auth-server:
-  host: ${AUTH_SERVER_HOST}
+  url: ${AUTH_SERVER_URL}

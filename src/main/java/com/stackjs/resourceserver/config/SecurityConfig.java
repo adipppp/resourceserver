@@ -3,7 +3,6 @@ package com.stackjs.resourceserver.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +18,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers(HttpMethod.GET, "/message").hasAuthority("SCOPE_message:read")
+                .requestMatchers("/messages").hasAuthority("SCOPE_messages")
 				.anyRequest().authenticated()
 			)
 			.oauth2ResourceServer((oauth2) -> oauth2
@@ -29,8 +28,8 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public JwtDecoder jwtDecoder(@Value("${auth-server.host}") String authServerHost) {
-		return JwtDecoders.fromIssuerLocation("http://" + authServerHost);
+	public JwtDecoder jwtDecoder(@Value("${auth-server.url}") String authServerUrl) {
+		return JwtDecoders.fromIssuerLocation(authServerUrl);
 	}
 
 }
